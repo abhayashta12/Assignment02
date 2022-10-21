@@ -5,10 +5,18 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+//import the router data
+let mongoose = require ('mongoose');
+
+//import the router data
 let indexRouter = require('./Server/routes/index');
 let usersRouter = require('./Server/routes/users');
 
 let app = express();
+
+// DB configuration
+let DBConfig = require('./Server/Config/db'); //might give error 
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
