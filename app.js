@@ -5,7 +5,7 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
-//import the router data
+// Step -1 import db package
 let mongoose = require ('mongoose');
 
 //import the router data
@@ -14,8 +14,23 @@ let usersRouter = require('./Server/routes/users');
 
 let app = express();
 
-// DB configuration
+// Step 2 Complete the DB configuration
 let DBConfig = require('./Server/Config/db'); //might give error 
+mongoose.connect(DBConfig.LocalURI);
+var db = mongoose.connection; //alias for the mongoose connection
+
+// Step 3- Listen for Connections or Errors
+
+db.on("open", function()
+{
+  console.log('Connected to MongoDB at: ${DBConfig.HostName}');
+});
+
+db.on("error", function()
+  {
+    console.error('Connection Error');
+  }
+);
 
 
 // view engine setup
